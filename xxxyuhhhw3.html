@@ -22,46 +22,57 @@
 
 		<div class="show">
 			<h1 style="color: white;padding-top: 100px;padding-bottom: 30px;">Enjoy the Scenic View!!</h1>
-			<table style="border: 1px solid black; background-color: white; width: 180px;margin-left: 450px;text-align: center;">
-				<td style="border: 1px solid black;">Book Your Reservation</td>
-			</table>>
+			<div style="border: 1px solid black; background-color: white; width: 180px;margin-left: 450px;text-align: center;">
+				<div style="border: 1px solid black; margin:1px;cursor:pointer;">Book Your Reservation
+				</div>
+			</div>
 		</div>
 		<h2>Explore Our Delicious Cuisines</h2>
-		<div class="section">
-		  	<table id="Italian">
+		<div class="content">
+		<div class="left">
+		  	<table>
 				<tr>
-					<td><img class="first" src="italian.jpg" width="300" height="200"></img></td>
-					<td style="padding-left: 40px;">
+					<td id="Italian"><img class="first" src="italian.jpg" width="330" height="220"></img></td>
+				</tr>
+				<tr>
+					<td id="Indian" style="padding-right: 470px;">
+						<h3>India's Flavors:</h3>
+						<p>Our dishes are blended with masterful savory spices</p>
+					</td>
+				</tr>
+				<tr>
+					<td id="Japanese"><img class="first" src="japanese.jpg" width="330" height="220"></img></td>
+				</tr>
+				<tr>
+					<td id="Desserts" style="padding-right: 470px;">
+						<h3>Desserts:</h3>
+						<p>From Italian Tiramisu to Indian Gulab Jamun</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="right">
+			<table id="table">	
+				<tr>
+					<td style="padding-left: 50px;">
 						<h3>Italy's finest:</h3>
 						<p>From our Lasagna to our Protein Penne, we have delicious options for every taste!</p>
 					</td>
 				</tr>
-			</table>
-			<table id="Indian">
 				<tr>
-					<td style="padding-right: 40px;"><h3>India's Flavors:</h3>
-						<p>Our dishes are blended with masterful savory spices</p>
-					</td>
-					<td><img class="second" src="indian.jpg" width="300" height="200"></img></td>
+					<td><img class="second" src="indian.jpg" width="330" height="220"></img></td>
 				</tr>
-			</table>
-			<table id="Japanese">
 				<tr>
-					<td><img class="first" src="japanese.jpg" width="300" height="200"></img></td>
-					<td style="padding-left: 40px;">
+					<td style="padding-left: 50px;">
 						<h3>Japanese Cuisine:</h3>
 						<p>Delicious dining options from Sake to Sushi</p>
 					</td>
 				</tr>
-			</table>
-			<table id="Desserts">
 				<tr>
-					<td style="padding-right: 40px;"><h3>Desserts:</h3>
-						<p>From Italian Tiramisu to Indian Gulab Jamun</p>
-					</td>
-					<td><img class="second" src="desserts.jpg" width="300" height="200"></img></td>
+					<td><img class="second" src="desserts.jpg" width="330" height="220"></img></td>
 				</tr>
 			</table>
+		</div>
 		</div>
 	</body>
 <style>
@@ -100,11 +111,16 @@
 		border:10px solid #C4E1FF;
 	}
 	table{
-		margin-left: 60px;
+		margin-left: 50px;
 		margin-bottom: 30px;
+		position: absolute;
 	}
 	td{
-		width:320px;
+		width:300px;
+		height: 240px;
+	}
+	.right{
+		margin-left: 350px;
 	}
 	h2{
 		color:#7E3D76;
@@ -116,6 +132,19 @@
 	h3{
 		color: #000079;
 		margin-bottom: -15px;
+	}
+	body{
+		position:absolute;
+		height: 1730px;
+	}
+	header{
+		position:absolute;
+	}
+	tr{
+		height: 280px;
+	}
+	a{
+		text-decoration:none;
 	}
 </style>
 </html>
