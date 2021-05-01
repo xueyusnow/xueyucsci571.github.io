@@ -1,0 +1,56 @@
+div.col-3:hover{
+    /* overflow:visible; */
+	transform: scale(1.1)!important;
+    /* -webkit-transform: scale(1.1); */
+}
+.desktop ::ng-deep ng-carousel.carousel.slide{
+    height:280px;
+}
+.desktop ::ng-deep .carousel-control-prev {
+    margin-left:-80px;
+}
+.desktop ::ng-deep .carousel-control-next{
+    margin-right:-60px;
+}
+.col-3{
+    width:155px;
+    /* margin-left: 1px;
+    margin-right:1px; */
+    display:block;
+    margin-top:10px;
+    margin-bottom:10px;
+    /* overflow:hidden; */
+    height:220px;
+}
+p{
+    margin-top: -45px;
+    font-size: 15px;
+    display:none;
+}
+div.col-3.float-left:hover{
+    /* overflow:visible; */
+	transform: scale(1.1)!important;
+    /* -webkit-transform: scale(1.1); */
+}
+.col-3:hover p{
+    display:block;
+    /* margin-top: -60px; */
+    bottom:-20px;
+}
+.col-3:hover img{
+    mask-image:-webkit-linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0.75),rgba(0,0,0,0),rgba(0,0,0,0));
+}
+.desktop ::ng-deep .carousel-indicators{
+    bottom:-20px;
+    /* position: fixed; */
+}
+.my-3{
+    height:230px;
+}
+a{
+    text-decoration: none;
+    color:white;
+}
+ngb-carousel:focus{
+    outline:none;
+}

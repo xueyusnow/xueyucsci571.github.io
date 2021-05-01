@@ -1,0 +1,378 @@
+
+<div class="container">
+    <div *ngIf="!mobile" class="desktop">
+        <div style="display:inline-block;">
+        <div *ngIf="video.length>0" style="display:inline-block;"><youtube-player videoId="{{video[0].key}}"></youtube-player></div>
+        <div *ngIf="video.length==0" style="display:inline-block;">
+            <youtube-player videoId="tzkWB85ULJY"></youtube-player>
+        </div>
+        <div class="sdes" 
+            style="display:inline-block;margin-left:50px;margin-top:0px;width: 350px;height:360px;position:absolute;color:#949498;">
+            <p style="color:white;font-size: 40px;">{{detail[0].name}}</p>
+            <p style="color:#C6C6C9;font-style: italic;">{{detail[0].tagline}}</p>
+            <p style="color:#C6C6C9;">{{detail[0].first_air_date.substring(0,4)}} | &#9733;&nbsp;{{detail[0].vote_average}} | {{detail[0].episode_run_time}}</p>
+            <p *ngIf="detail[0].genres!=''"><b style="color:#C6C6C9;">Genres:</b>&nbsp;{{detail[0].genres}}</p>
+            <p *ngIf="detail[0].spoken_languages.length>0"><b style="color:#C6C6C9;">Spoken Languages:</b><span *ngFor="let a of detail[0].spoken_languages;let i = index">&nbsp;{{detail[0].spoken_languages[i].name}}<span *ngIf="i<detail[0].spoken_languages.length-1">,</span></span></p>
+            <button type="button" (click)="updatebutton()" class="btn btn-primary">{{button}}</button>
+            <ngb-alert #staticAlert *ngIf="!staticAlertClosed && button=='Add to Watchlist'" (closed)="staticAlertClosed = true" type="danger">Remove from Watchlist</ngb-alert>
+            <ngb-alert #selfClosingAlert *ngIf="!staticAlertOpen && button=='Remove from Watchlist'" type="success" (closed)="staticAlertOpen = true">Add to Watchlist</ngb-alert>
+        </div>
+        </div>
+    <div *ngIf="detail[0].overview!=''&&detail[0].overview!=null">
+        <br>
+    <h4>Description</h4>
+    <p style="color:#949498;">{{detail[0].overview}}</p></div>
+    <br>
+    <h4>Share</h4>
+    <div *ngIf="video.length>0">
+        <a class="twitter-share-button" target="_blank" 
+        href="https://twitter.com/intent/tweet?text=Watch%20{{detail[0].name}}%0A{{video[0].url}}%0A%23USC%20%23CSCI571%20%23FightOn">
+        <span class="iconify" data-icon="logos:twitter" data-inline="false" style="font-size: 25px;"></span></a>
+        &nbsp;<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{video[0].url}}">
+            <span class="iconify" data-icon="brandico:facebook-rect" data-inline="false" style="font-size: 25px;color:blue;"></span></a>
+    </div>
+    <div *ngIf="video.length==0">
+        <a class="twitter-share-button" target="_blank" 
+        href="https://twitter.com/intent/tweet?text=Watch%20{{detail[0].name}}%0Ahttps://www.youtube.com/watch?v=tzkWB85ULJY%0A%23USC%20%23CSCI571%20%23FightOn">
+        <span class="iconify" data-icon="logos:twitter" data-inline="false" style="font-size: 25px;"></span></a>
+        &nbsp;<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.youtube.com/watch?v=tzkWB85ULJY">
+            <span class="iconify" data-icon="brandico:facebook-rect" data-inline="false" style="font-size: 25px;color:blue;"></span></a>
+    </div>
+    <div *ngIf="credit.length>0">
+    <br>
+    <br>
+    <h2>Full Cast and Crew</h2>
+    <br>
+    <div class="scroll">
+        <div class="cardall" style="max-width: 18rem;height: auto;" *ngFor="let b of credit">
+            <ng-template #content let-modal>
+                <app-personmodel [iid]=b.id (personget)="updateperson($event)"></app-personmodel>
+                <app-personextmodel [iid]=b.id (personextget)="updatepersonext($event)"></app-personextmodel>
+                    <div class="modal-header">
+                    <h4 class="modal-name">{{person[0].name}}</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{b.profile_path}}" alt="Card image cap">
+                    <div id="birth">
+                        <p *ngIf="person[0].birthday!=''&&person[0].birthday!=null">Birth: {{person[0].birthday}}</p>
+                        <p *ngIf="person[0].place_of_birth!=''&&person[0].place_of_birth!=null">Birth Place: {{person[0].place_of_birth}}</p>
+                        <p *ngIf="person[0].gender!=''&&person[0].gender!=null">Gender: <span *ngIf="person[0].gender==1">Female</span><span *ngIf="person[0].gender==2">Male</span><span *ngIf="person[0].gender==0">Undefined</span></p>
+                        <p *ngIf="person[0].homepage!=''&&person[0].homepage!=null">Website: <a target="_blank" href='{{person[0].homepage}}'>{{person[0].homepage}}</a></p>
+                        <p *ngIf="person[0].known_for_department!=''&&person[0].known_for_department!=null">Known for: {{person[0].known_for_department}}</p>
+                        <p *ngIf="person[0].also_known_as!=''&&person[0].also_known_as!=null">Also Known as: {{person[0].also_known_as}}</p>
+                        <br>
+                        <a target="_blank" href="https://www.imdb.com/name/{{extperson[0].imdb_id}}"
+                                    *ngIf="extperson[0].imdb_id!=''&&extperson[0].imdb_id!=null"><span class="iconify" data-icon="cib:imdb" data-inline="false"
+                                        style="font-size:25px;color:#f3ce13;"></span></a>
+                                <a target="_blank" href="https://www.instagram.com/{{extperson[0].instagram_id}}"
+                                    *ngIf="extperson[0].instagram_id!=''&&extperson[0].instagram_id!=null">&nbsp;<span class="iconify" data-icon="cib:instagram" data-inline="false" style="font-size:25px;color:#C13584;"></span></a>
+                                <a target="_blank" href="https://www.facebook.com/{{extperson[0].facebook_id}}"
+                                    *ngIf="extperson[0].facebook_id!=''&&extperson[0].facebook_id!=null">&nbsp;<span class="iconify" data-icon="grommet-icons:facebook" data-inline="false" style="font-size: 25px;color:blue;"></span></a>
+                                <a target="_blank" href="https://www.twitter.com/{{extperson[0].twitter_id}}"
+                                    *ngIf="extperson[0].twitter_id!=''&&extperson[0].twitter_id!=null">&nbsp;<span class="iconify" data-icon="logos:twitter" data-inline="false" style="font-size: 25px;"></span>
+                                </a>
+                    </div>
+                    <div class="bio" *ngIf="person[0].biography!=''">
+                        <h4 style="margin-top:12px;">Biography</h4>
+                        <p>{{person[0].biography}}</p>
+                    </div>
+                </div>
+            </ng-template>
+            <div  class="card"  style="width: 10.7rem;" (click)="openBackDropCustomClass(content)">
+                <img class="card-img-top" src="{{b.profile_path}}" alt="Card image cap">
+                <div class="card-body" style="width:10.7rem;">
+                    <h6>{{b.name}}</h6>
+                    <h6><b>AS</b></h6>
+                    <p class="card-text">{{b.character}}</p>
+                </div>    
+            </div>
+        </div>
+        </div>
+    </div>
+    <div *ngIf="review.length>0">
+        <br>
+        <br>
+        <h2>Reviews {{review.length}}</h2>
+        
+        <br>
+        <div class="reviews" *ngFor="let a of review">
+            <img src="{{a.avatar_path}}" style="height:100px;width:100px;overflow:hidden;border-radius:50%;">
+            <div class="revcont">
+                <br>
+                <h4 style="display:inline-block;">A review created by {{a.author}}&nbsp;</h4>
+                <span class="rate"><b style="font-size:22px;">&#9733;</b>&nbsp;{{a.rating}}&nbsp;</span>
+                <br>
+                <p style="color:gray;">Written by {{a.author}} on {{a.created_at}}</p>
+                <br>
+                <p style="overflow:hidden;word-break:keep-all;word-break:break;max-width:880px;-webkit-box-orient:vertical;display:-webkit-box; -webkit-line-clamp:3;text-overflow:ellipsis;margin-right: 20px;">{{a.content}}</p>
+                <a target="_blank" href="{{a.url}}">Read the rest</a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="recommendation.length>0">
+        <br>
+        <br>
+        <h2>Recommended TV Shows</h2>
+        <br>
+        <!-- <div class="container text-center my-3">
+            <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
+                    
+                <div class="carousel-inner w-100" role="listbox">
+                    <div class="carousel-item row no-gutters active" >
+                        <div class="col-3 float-left" *ngFor="let i of [0,1,2,3,4,5]" (click)="update()"><a routerLink='/watch/tv/{{recommendation[i].id}}' *ngIf="recommendation.length>=i+1"><img class="img-fluid" src="{{recommendation[i].poster_path}}"><p>{{recommendation[i].name}}</p></a></div>
+                    </div>
+                    <div class="carousel-item row no-gutters" *ngIf="recommendation.length>=6">
+                        <div class="col-3 float-left" *ngFor="let i of [6,7,8,9,10,11]" (click)="update()"><a routerLink='/watch/tv/{{recommendation[i].id}}' *ngIf="recommendation.length>=i+1"><img class="img-fluid" src="{{recommendation[i].poster_path}}"><p>{{recommendation[i].name}}</p></a></div>
+                    </div>
+                    <div class="carousel-item row no-gutters" *ngIf="recommendation.length>=12">
+                        <div class="col-3 float-left" *ngFor="let i of [12,13,14,15,16,17]" (click)="update()"><a routerLink='/watch/tv/{{recommendation[i].id}}' *ngIf="recommendation.length>=i+1"><img class="img-fluid" src="{{recommendation[i].poster_path}}"><p>{{recommendation[i].name}}</p></a></div>
+                    </div>
+                    <div class="carousel-item row no-gutters" *ngIf="recommendation.length>=18">
+                        <div class="col-3 float-left" *ngFor="let i of [18,19,20,21,22,23]" (click)="update()"><a routerLink='/watch/tv/{{recommendation[i].id}}' *ngIf="recommendation.length>=i+1"><img class="img-fluid" src="{{recommendation[i].poster_path}}"><p>{{recommendation[i].name}}</p></a></div>
+                    </div>
+                </div>
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators3" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators3" data-slide-to="1" *ngIf="recommendation.length>=6"></li>
+                    <li data-target="#carouselExampleIndicators3" data-slide-to="2" *ngIf="recommendation.length>=12"></li>
+                    <li data-target="#carouselExampleIndicators3" data-slide-to="3" *ngIf="recommendation.length>=18"></li>
+                </ol>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div> -->
+        <ngb-carousel>
+            <ng-template ngbSlide>
+                <div class="col-3 float-left" *ngFor="let i of [0,1,2,3,4,5]"><a routerLink='/watch/tv/{{recommendation[i].id}}' *ngIf="recommendation.length>=i+1"><img class="img-fluid" src="{{recommendation[i].poster_path}}"><p>{{recommendation[i].name}}</p></a></div>
+            </ng-template>
+            <ng-template ngbSlide *ngIf="recommendation.length>=6">
+                <div class="col-3 float-left" *ngFor="let i of [6,7,8,9,10,11]"><a routerLink='/watch/tv/{{recommendation[i].id}}' *ngIf="recommendation.length>=i+1"><img class="img-fluid" src="{{recommendation[i].poster_path}}"><p>{{recommendation[i].name}}</p></a></div>
+            </ng-template>
+            <ng-template ngbSlide *ngIf="recommendation.length>=12">
+                <div class="col-3 float-left" *ngFor="let i of [12,13,14,15,16,17]"><a routerLink='/watch/tv/{{recommendation[i].id}}' *ngIf="recommendation.length>=i+1"><img class="img-fluid" src="{{recommendation[i].poster_path}}"><p>{{recommendation[i].name}}</p></a></div>
+            </ng-template>
+            <ng-template ngbSlide *ngIf="recommendation.length>=18">
+                <div class="col-3 float-left" *ngFor="let i of [18,19,20,21,22,23]"><a routerLink='/watch/tv/{{recommendation[i].id}}' *ngIf="recommendation.length>=i+1"><img class="img-fluid" src="{{recommendation[i].poster_path}}"><p>{{recommendation[i].name}}</p></a></div>
+            </ng-template>
+        </ngb-carousel>
+        </div>
+        <div *ngIf="similar.length>0">
+        <br>
+        <br>
+        <h2>Similar TV Shows</h2>
+        <br>
+        <!-- <div class="container text-center my-3">
+            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                
+                    <div class="carousel-inner w-100" role="listbox">
+                        <div class="carousel-item row no-gutters active" >
+                            <div class="col-3 float-left" *ngFor="let i of [0,1,2,3,4,5]" (click)="update()"><a routerLink='/watch/tv/{{similar[i].id}}' *ngIf="similar.length>=i+1"><img class="img-fluid" src="{{similar[i].poster_path}}"><p>{{similar[i].name}}</p></a></div>
+                        </div>
+                        <div class="carousel-item row no-gutters" *ngIf="similar.length>=6">
+                            <div class="col-3 float-left" *ngFor="let i of [6,7,8,9,10,11]" (click)="update()"><a routerLink='/watch/tv/{{similar[i].id}}' *ngIf="similar.length>=i+1"><img class="img-fluid" src="{{similar[i].poster_path}}"><p>{{similar[i].name}}</p></a></div>
+                        </div>
+                        <div class="carousel-item row no-gutters" *ngIf="similar.length>=12">
+                            <div class="col-3 float-left" *ngFor="let i of [12,13,14,15,16,17]" (click)="update()"><a routerLink='/watch/tv/{{similar[i].id}}' *ngIf="similar.length>=i+1"><img class="img-fluid" src="{{similar[i].poster_path}}"><p>{{similar[i].name}}</p></a></div>
+                        </div>
+                        <div class="carousel-item row no-gutters" *ngIf="similar.length>=18">
+                            <div class="col-3 float-left" *ngFor="let i of [18,19,20,21,22,23]" (click)="update()"><a routerLink='/watch/tv/{{similar[i].id}}' *ngIf="similar.length>=i+1"><img class="img-fluid" src="{{similar[i].poster_path}}"><p>{{similar[i].name}}</p></a></div>
+                        </div>
+                    </div>
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators2" data-slide-to="1" *ngIf="similar.length>=6"></li>
+                        <li data-target="#carouselExampleIndicators2" data-slide-to="2" *ngIf="similar.length>=12"></li>
+                        <li data-target="#carouselExampleIndicators2" data-slide-to="3" *ngIf="similar.length>=18"></li>
+                    </ol>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+        <ngb-carousel>
+            <ng-template ngbSlide>
+                <div class="col-3 float-left" *ngFor="let i of [0,1,2,3,4,5]"><a routerLink='/watch/tv/{{similar[i].id}}' *ngIf="similar.length>=i+1"><img class="img-fluid" src="{{similar[i].poster_path}}"><p>{{similar[i].name}}</p></a></div>
+            </ng-template>
+            <ng-template ngbSlide *ngIf="similar.length>=6">
+                <div class="col-3 float-left" *ngFor="let i of [6,7,8,9,10,11]"><a routerLink='/watch/tv/{{similar[i].id}}' *ngIf="similar.length>=i+1"><img class="img-fluid" src="{{similar[i].poster_path}}"><p>{{similar[i].name}}</p></a></div>
+            </ng-template>
+            <ng-template ngbSlide *ngIf="similar.length>=12">
+                <div class="col-3 float-left" *ngFor="let i of [12,13,14,15,16,17]"><a routerLink='/watch/tv/{{similar[i].id}}' *ngIf="similar.length>=i+1"><img class="img-fluid" src="{{similar[i].poster_path}}"><p>{{similar[i].name}}</p></a></div>
+            </ng-template>
+            <ng-template ngbSlide *ngIf="similar.length>=18">
+                <div class="col-3 float-left" *ngFor="let i of [18,19,20,21,22,23]"><a routerLink='/watch/tv/{{similar[i].id}}' *ngIf="similar.length>=i+1"><img class="img-fluid" src="{{similar[i].poster_path}}"><p>{{similar[i].name}}</p></a></div>
+            </ng-template>
+        </ngb-carousel>
+        </div>
+    </div>
+    <div *ngIf="mobile" class="mobilee">
+        <div class="embed-responsive" *ngIf="video.length>0" style="width:380px;height:190px;">
+            <youtube-player videoId="{{video[0].key}}"></youtube-player>
+            
+        </div>
+        <div class="embed-responsive" *ngIf="video.length==0" style="width:380px;height:190px;">
+            <youtube-player videoId="tzkWB85ULJY"></youtube-player>
+        </div>
+        <div class="sdes" style="display:block;left:0px;top:auto;width: 380px;position:relative;color:#949498;">
+            <p style="color:white;font-size: 50px;">{{detail[0].name}}</p>
+            <p style="color:#C6C6C9;font-style: italic;">{{detail[0].tagline}}</p>
+            <p style="color:#C6C6C9;">{{detail[0].first_air_date.substring(0,4)}} | &#9733;&nbsp;{{detail[0].vote_average}} | {{detail[0].episode_run_time}}</p>
+            <p *ngIf="detail[0].genres!=''"><b style="color:#C6C6C9;">Genres:</b>&nbsp;{{detail[0].genres}}</p>
+            <p *ngIf="detail[0].spoken_languages.length>0"><b style="color:#C6C6C9;display:inline;">Spoken Languages:</b><span *ngFor="let a of detail[0].spoken_languages;let i = index">&nbsp;{{detail[0].spoken_languages[i].name}}<span *ngIf="i<detail[0].spoken_languages.length-1">,</span></span></p>
+            <button type="button" (click)="updatebutton()" class="btn btn-primary" style="font-size:25px;">{{button}}</button>
+            <ngb-alert #staticAlert *ngIf="!staticAlertClosed && button=='Add to Watchlist'" (closed)="staticAlertClosed = true" type="danger">Remove from Watchlist</ngb-alert>
+            <ngb-alert #selfClosingAlert *ngIf="!staticAlertOpen && button=='Remove from Watchlist'" type="success" (closed)="staticAlertOpen = true">Add to Watchlist</ngb-alert>
+
+        </div>
+    <div *ngIf="detail[0].overview!=''&&detail[0].overview!=null" style="position: relative;display: block;">
+        <!-- <br> -->
+    <h4>Description</h4>
+    <p style="color:#949498;">{{detail[0].overview}}</p></div>
+    <br>
+    <h4>Share</h4>
+    <div *ngIf="video.length>0">
+        <a class="twitter-share-button" target="_blank" 
+        href="https://twitter.com/intent/tweet?text=Watch%20{{detail[0].name}}%0A{{video[0].url}}%0A%23USC%20%23CSCI571%20%23FightOn">
+        <span class="iconify" data-icon="logos:twitter" data-inline="false" style="font-size: 25px;"></span></a>
+        &nbsp;<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{video[0].url}}">
+            <span class="iconify" data-icon="brandico:facebook-rect" data-inline="false" style="font-size: 25px;color:blue;"></span></a>
+    </div>
+    <div *ngIf="video.length==0">
+        <a class="twitter-share-button" target="_blank" 
+        href="https://twitter.com/intent/tweet?text=Watch%20{{detail[0].name}}%0Ahttps://www.youtube.com/watch?v=tzkWB85ULJY%0A%23USC%20%23CSCI571%20%23FightOn">
+        <span class="iconify" data-icon="logos:twitter" data-inline="false" style="font-size: 25px;"></span></a>
+        &nbsp;<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://www.youtube.com/watch?v=tzkWB85ULJY">
+            <span class="iconify" data-icon="brandico:facebook-rect" data-inline="false" style="font-size: 25px;color:blue;"></span></a>
+    </div>
+    <div *ngIf="credit.length>0">
+    <br>
+    <br>
+    <h2 *ngIf="mobile" style="margin-left: 5px;">Full Cast and Crew</h2>
+    <br>
+    <div class="scroll">
+        <div  class="cardall" style="max-width: 18rem;height: auto;" *ngFor="let b of credit">
+            <ng-template #content let-modal>
+                <app-personmodel [iid]=b.id (personget)="updateperson($event)"></app-personmodel>
+                <app-personextmodel [iid]=b.id (personextget)="updatepersonext($event)"></app-personextmodel>
+                <div class="modal-header">
+                    <h4 class="modal-name">{{person[0].name}}</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img src="{{b.profile_path}}" alt="Card image cap" style="width:360px;">
+                    <div id="birth" style="margin-left:0;">
+                        <p *ngIf="person[0].birthday!=''&&person[0].birthday!=null">Birth: {{person[0].birthday}}</p>
+                        <p *ngIf="person[0].place_of_birth!=''&&person[0].place_of_birth!=null">Birth Place: {{person[0].place_of_birth}}</p>
+                        <p *ngIf="person[0].gender!=''&&person[0].gender!=null">Gender: <span *ngIf="person[0].gender==1">Female</span><span *ngIf="person[0].gender==2">Male</span><span *ngIf="person[0].gender==0">Undefined</span></p>
+                        <p *ngIf="person[0].homepage!=''&&person[0].homepage!=null">Website: <a target="_blank" href='{{person[0].homepage}}'>{{person[0].homepage}}</a></p>
+                        <p *ngIf="person[0].known_for_department!=''&&person[0].known_for_department!=null">Known for: {{person[0].known_for_department}}</p>
+                        <p *ngIf="person[0].also_known_as!=''&&person[0].also_known_as!=null">Also Known as: {{person[0].also_known_as}}</p>
+                        <br>
+                        <a target="_blank" href="https://www.imdb.com/name/{{extperson[0].imdb_id}}"
+                                    *ngIf="extperson[0].imdb_id!=''&&extperson[0].imdb_id!=null"><span class="iconify" data-icon="cib:imdb" data-inline="false"
+                                        style="font-size:25px;color:#f3ce13;"></span></a>
+                                <a target="_blank" href="https://www.instagram.com/{{extperson[0].instagram_id}}"
+                                    *ngIf="extperson[0].instagram_id!=''&&extperson[0].instagram_id!=null">&nbsp;<span class="iconify" data-icon="cib:instagram" data-inline="false" style="font-size:25px;color:#C13584;"></span></a>
+                                <a target="_blank" href="https://www.facebook.com/{{extperson[0].facebook_id}}"
+                                    *ngIf="extperson[0].facebook_id!=''&&extperson[0].facebook_id!=null">&nbsp;<span class="iconify" data-icon="grommet-icons:facebook" data-inline="false" style="font-size: 25px;color:blue;"></span></a>
+                                <a target="_blank" href="https://www.twitter.com/{{extperson[0].twitter_id}}"
+                                    *ngIf="extperson[0].twitter_id!=''&&extperson[0].twitter_id!=null">&nbsp;<span class="iconify" data-icon="logos:twitter" data-inline="false" style="font-size: 25px;"></span>
+                                </a>
+                    </div>
+                    <div class="bio" *ngIf="person[0].biography!=''">
+                        <h4 style="margin-top:12px;">Biography</h4>
+                        <p>{{person[0].biography}}</p>
+                    </div>
+                </div>
+            </ng-template>
+            <div  class="card"  style="width: 10.7rem;" (click)="openBackDropCustomClass(content)">
+            <img class="card-img-top" src="{{b.profile_path}}" alt="Card image cap">
+            <div class="card-body" style="width:10.7rem;">
+                <h6>{{b.name}}</h6>
+                <h6><b>AS</b></h6>
+                <p class="card-text">{{b.character}}</p>
+            </div>    
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    <div *ngIf="review.length>0">
+        <br>
+        <br>
+        <h2 style="margin-left: 5px;">Reviews {{review.length}}</h2>
+        
+        <br>
+        <div class="reviews" *ngFor="let a of review">
+            <img src="{{a.avatar_path}}" style="height:100px;width:100px;overflow:hidden;border-radius:50%;margin-left:50px;">
+            <div class="revcont" style="max-width:300px;">
+                <br>
+                <h4 style="display:inline-block;">A review created by {{a.author}}&nbsp;</h4>
+                <br>
+                <span class="rate"><b style="font-size:22px;">&#9733;</b>&nbsp;{{a.rating}}&nbsp;</span>
+                <br>
+                <p style="color:gray;">Written by {{a.author}} on {{a.created_at}}</p>
+                <br>
+                <p style="overflow:hidden;word-break:keep-all;word-break:break;max-width:880px;-webkit-box-orient:vertical;display:-webkit-box; -webkit-line-clamp:3;text-overflow:ellipsis;margin-right: 20px;">{{a.content}}</p>
+                <a target="_blank" href="{{a.url}}">Read the rest</a>
+            </div>
+        </div>
+    </div>
+        <div *ngIf="recommendation.length>0">
+        <br>
+        <br>
+        <h1>Recommended TV Shows</h1>
+        <br>
+        <ngb-carousel [showNavigationIndicators]="false">
+            <ng-template ngbSlide *ngFor="let a of recommendation">
+                <div  (click)="update()">
+            <a routerLink='/watch/tv/{{a.id}}'>
+            <div class="picsum-img-wrapper" style="margin-left: 65px;">
+                <img src="{{a.poster_path}}" alt="Random first slide" style="width:260px;">
+                <div class="carousel-caption">
+                    <p>{{a.name}}</p>
+                </div>
+            </div>
+            
+            </a></div>
+            </ng-template>
+        </ngb-carousel>
+        </div>
+        <div *ngIf="similar.length>0">
+        <br>
+        <h1>Similar TV Shows</h1>
+        <br>
+        <ngb-carousel [showNavigationIndicators]="false">
+            <ng-template ngbSlide *ngFor="let a of similar">
+                <div  (click)="update()">
+            <a routerLink='/watch/tv/{{a.id}}'>
+            <div class="picsum-img-wrapper" style="margin-left: 65px;">
+                <img src="{{a.poster_path}}" alt="Random first slide" style="width:260px;">
+                <div class="carousel-caption">
+                    <p>{{a.name}}</p>
+                </div>
+            </div>
+            
+            </a></div>
+            </ng-template>
+        </ngb-carousel>
+    </div>
+    </div>
+</div>

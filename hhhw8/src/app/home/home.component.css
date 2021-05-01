@@ -1,0 +1,9 @@
+html,body{
+    /* min-height:100%; */
+    color:white;
+    background-color:#060139;
+}
+.container{
+    left:25%;
+    width:980px;
+}
