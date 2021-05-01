@@ -1,0 +1,33 @@
+ngb-carousel{
+    height:230px;
+    /* align-items: center; */
+    width:400px;
+    /* margin-left:0px; */
+}
+ngb-carousel:hover{
+    
+	transform: scale(1.1);
+}
+ngb-carousel:focus{
+    outline:none;
+}
+
+ngb-carousel .carousel-caption{
+    display:block;
+    text-align:left;
+    left:55px;
+    font-size: 12px;
+}
+ng-template{
+    height:300px;
+}
+img{
+    width:380px;
+    height:230px;
+    object-fit: cover;
+    margin-left:18px;
+    /* align-self: center; */
+}
+ngb-carousel img{
+    mask-image:-webkit-linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0.75),rgba(0,0,0,0),rgba(0,0,0,0));
+}

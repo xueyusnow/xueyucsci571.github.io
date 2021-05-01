@@ -1,0 +1,52 @@
+<ngb-carousel>
+    <ng-template ngbSlide>
+      <a routerLink='/watch/movie/{{movies[0].id}}'>
+      <div class="picsum-img-wrapper">
+        <img src="{{movies[0].backdrop_path}}" alt="Random first slide">
+      </div>
+      <div class="carousel-caption">
+        <p>{{movies[0].title}}</p>
+      </div>
+      </a>
+    </ng-template>
+    <ng-template ngbSlide>
+      <a routerLink='/watch/movie/{{movies[1].id}}'>
+      <div class="picsum-img-wrapper">
+        <img src="{{movies[1].backdrop_path}}" alt="Random second slide">
+      </div>
+      <div class="carousel-caption">
+        <p>{{movies[1].title}}</p>
+      </div>
+      </a>
+    </ng-template>
+    <ng-template ngbSlide>
+      <a routerLink='/watch/movie/{{movies[2].id}}'>
+      <div class="picsum-img-wrapper">
+        <img src="{{movies[2].backdrop_path}}" alt="Random third slide">
+      </div>
+      <div class="carousel-caption">
+        <p>{{movies[2].title}}</p>
+      </div>
+      </a>
+    </ng-template>
+    <ng-template ngbSlide>
+      <a routerLink='/watch/movie/{{movies[3].id}}'>
+        <div class="picsum-img-wrapper">
+          <img src="{{movies[3].backdrop_path}}" alt="Random second slide">
+        </div>
+        <div class="carousel-caption">
+          <p>{{movies[3].title}}</p>
+        </div>
+        </a>
+      </ng-template>
+      <ng-template ngbSlide>
+        <a routerLink='/watch/movie/{{movies[4].id}}'>
+        <div class="picsum-img-wrapper">
+          <img src="{{movies[4].backdrop_path}}" alt="Random second slide">
+        </div>
+        <div class="carousel-caption">
+          <p>{{movies[4].title}}</p>
+        </div>
+        </a>
+      </ng-template>
+  </ngb-carousel>
