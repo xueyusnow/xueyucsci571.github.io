@@ -1,0 +1,113 @@
+/* .col-3{
+    width:130px;
+    margin-left: 12px;
+    margin-right:11px;
+    margin-top:10px;
+    margin-bottom:10px;
+    height:220px;
+} */
+.desktop ng-carousel{
+    margin-bottom: -50px;
+}
+.desktop ::ng-deep .carousel-indicators{
+    bottom:-20px;
+}
+.desktop ::ng-deep .carousel-control-prev {
+    margin-left:-80px;
+}
+.desktop ::ng-deep .carousel-control-next{
+    margin-right:-60px;
+}
+.desktop ::ng-deep .col-3{
+    width:155px;
+    /* margin-left: 1px;
+    margin-right:1px; */
+    display:block;
+    margin-top:10px;
+    margin-bottom:10px;
+    /* overflow:visible; */
+    height:220px;
+}
+
+/* .img-fluid ::ng-deep{
+    overflow:visible;
+    object-fit:none;
+    max-height: 300px;
+}
+.img-fluid img{
+    width:130px;
+} */
+.col-3 p{
+    margin-top: -45px;
+    font-size: 15px;
+    display:none!important;
+    max-height: 300px;
+}
+.showp a{
+    overflow:visible;
+}
+.col-3:hover{
+	transform: scale(1.1);
+    /* overflow:visible; */
+}
+.col-3:hover p{
+    display:block!important;
+}
+.col-3:hover img{
+    mask-image:-webkit-linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0.75),rgba(0,0,0,0),rgba(0,0,0,0));
+}
+.carousel-indicators{
+    top:220px;
+}
+.my-3{
+    height:230px;
+}
+.carousel-control-prev{
+    left:-80px;
+}
+.carousel-control-next{
+    right:-80px;
+}
+a{
+    text-decoration: none;
+    color:white;
+}
+.mobilee ngb-carousel{
+    height:230px;
+    /* align-items: center; */
+    width:400px;
+    /* margin-left:0px; */
+}
+
+.picsum-img-wrapper p{
+    display:block;
+    /* text-align: center; */
+    margin-left: 50px;
+}
+ngb-carousel:focus{
+    outline:none;
+}
+
+ngb-carousel .carousel-caption{
+    display:block;
+    text-align:left;
+    left:55px;
+    font-size: 12px;
+}
+.mobilee ngb-carousel{
+    height:390px;
+}
+.picsum-img-wrapper img{
+    width:380px;
+    /* height:300px; */
+    object-fit: cover;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+.picsum-img-wrapper img{
+    mask-image:-webkit-linear-gradient(rgba(0,0,0,1),rgba(0,0,0,0.75),rgba(0,0,0,0),rgba(0,0,0,0));
+}
+.picsum-img-wrapper:hover img{
+    
+	transform: scale(1.1);
+}
